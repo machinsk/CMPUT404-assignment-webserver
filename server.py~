@@ -105,7 +105,7 @@ class MyWebServer(SocketServer.BaseRequestHandler):
 	                "Content-Length: 117\r\n\r\n" + \
 	                "<html><body>\r\n" + \
 	                "<h2>File not found</h2>\r\n" + \
-	                "The file is not within the server directory" + \
+	                "The file is not within the server directory.\r\n" + \
 	                "Life is hard.\r\n" + \
 	                "</body></html>\r\n"
 

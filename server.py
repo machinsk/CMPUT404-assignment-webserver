@@ -40,7 +40,7 @@ class MyWebServer(SocketServer.BaseRequestHandler):
 			requestedFile += "index.html"
 		
 		response = None
-		if self.isDirectory(requestedFile):
+		if os.path.isdir(requestedFile):
 			response = self.response301(requestedFile)
 		elif self.isRequestValid(requestedFile):
 			readFile = open(requestedFile, "r").read()
@@ -56,16 +56,11 @@ class MyWebServer(SocketServer.BaseRequestHandler):
 	        self.request.sendall(response)
 
 
-
+	#ensures parent directory cannot be accessed
 	def isRequestValid(self, requestedFile):
 		if "../" in requestedFile or "/.." in requestedFile :
 			return False
 		return os.path.isfile(requestedFile)
-
-
-
-	def isDirectory(self, requestedFile):
-		return os.path.isdir(requestedFile)
 
 
 
@@ -81,6 +76,7 @@ class MyWebServer(SocketServer.BaseRequestHandler):
 	        elif requestedFile.lower().endswith(".css"):
 			response += "Content-Type: text/css\r\n"+ \
 				"Content-Length: %d\r\n\r\n" % len(readFile)
+		#content type not of html or css		
 		else:
 			response = None
 
